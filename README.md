@@ -7,15 +7,15 @@
 ### Node.js:
 
 ```shell
-$ npm i --save maplibre-tianditu
+$ npm i --save @cdxyy/maplibre-tianditu
 ```
 
 ```javascript
-import { createTianDiTuMap } from "maplibre-tianditu";
-import "maplibre-tianditu/dist/maplibre-tianditu.css";
+import { createTianDiTuMap } from "@cdxyy/maplibre-tianditu";
+import "@cdxyy/maplibre-tianditu/dist/maplibre-tianditu.css";
 var mapManager = createTianDiTuMap({
-  container: "maplibre-map", // 对应模板中的div id
-  tiandituKey: "你的天地图密钥", //
+  container: "maplibre-map", //可传入dom或者div的id
+  tiandituKey: "你的天地图密钥",
   serviceType: ["vec", "cva"], //矢量底图+矢量注记
   center: [104.0665, 30.657],
   zoom: 9,
@@ -37,7 +37,7 @@ var map = mapManager.map;
 ```html
 <script>
   var mapManager = MaplibreTDT.createTianDiTuMap({
-    container: "maplibre-map", // 对应模板中的div id
+    container: "maplibre-map", //可传入dom或者div的id
     tiandituKey: "你的天地图密钥", //
     serviceType: ["vec", "cva"], //矢量底图+矢量注记
     center: [104.0665, 30.657],

@@ -1,7 +1,7 @@
 {
-  "name": "@cdxyy/maplibre-tianditu",
+  "name": "maplibre-tianditu",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "./dist/maplibre-tianditu.umd.js",
   "module": "./dist/maplibre-tianditu.es.js",
@@ -28,8 +28,5 @@
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vite-plugin-dts": "^4.5.4"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

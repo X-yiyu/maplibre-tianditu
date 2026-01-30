@@ -7,13 +7,14 @@ settings:
 importers:
 
   .:
+    dependencies:
+      maplibre-gl:
+        specifier: ^5.16.0
+        version: 5.16.0
     devDependencies:
       '@types/node':
         specifier: ^25.0.8
         version: 25.0.8
-      maplibre-gl:
-        specifier: ^5.16.0
-        version: 5.16.0
       terser:
         specifier: ^5.46.0
         version: 5.46.0

@@ -8,7 +8,7 @@ const buildConfig: BuildOptions = {
         entry: resolve(__dirname, 'src/lib/index.ts'),
         name: 'MaplibreTDT',
         fileName: (format) => `maplibre-tianditu.${format}.js`,
-        formats: ['es', 'umd'] as const, // 字面量类型断言，避免 TS 推断为 string[]
+        formats: ['es', 'umd']
     },
     rollupOptions: {
         external: [], // 打包 maplibre-gl 到库中
@@ -20,7 +20,7 @@ const buildConfig: BuildOptions = {
             preserveModules: false,
         },
     },
-    minify: "terser", // 关键：使用字符串字面量（而非普通字符串）
+    minify: "esbuild",
     sourcemap: false,
     emptyOutDir: true,
     modulePreload: {
