@@ -1,4 +1,4 @@
-# maplibre-tianditu
+# @cdxyy/maplibre-tianditu
 
 简单集成了 maplibre-gl 和天地图瓦片服务.
 
@@ -58,3 +58,7 @@ var map = mapManager.map;
 | tiandituKey | 天地图的 key，需要自己申请。                                        |
 | serviceType | ['vec','cva'] 或者'vec'\| 'img' \| 'ter' \| 'cia' \| 'cta' \| 'cva' |
 | 其他        | **[maplibre-gl](https://maplibre.org/maplibre-gl-js/docs/API/)**    |
+
+## License
+
+**@cdxyy/maplibre-tianditu** is licensed under the [3-Clause BSD license](./LICENSE).
