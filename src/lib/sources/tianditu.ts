@@ -1,3 +1,5 @@
+import type { RasterSourceSpecification } from 'maplibre-gl';
+
 // 天地图服务类型
 export type TDTServiceType = 'vec' | 'img' | 'ter' | 'cia' | 'cta' | 'cva';
 
@@ -15,20 +17,10 @@ export function createTianDiTuSource(
         subdomains?: string[];
         coordinateSystem?: 'wgs84' | 'gcj02';
     } = {}
-) {
+): RasterSourceSpecification {
     const { subdomains = ['t0', 't1', 't2', 't3', 't4', 't5', 't6', 't7'], coordinateSystem = 'wgs84' } = options;
 
-    // 定义服务类型与图层名的映射
-    const layerMap: Record<TDTServiceType, string> = {
-        vec: 'vec',
-        img: 'img',
-        ter: 'ter',
-        cia: 'cia',
-        cta: 'cta',
-        cva: 'cva'
-    };
-
-    const layerName = layerMap[type];
+    const layerName = type;
     const domain = coordinateSystem === 'gcj02' ? 't1.tianditu.gov.cn' : '{s}.tianditu.gov.cn';
 
     return {

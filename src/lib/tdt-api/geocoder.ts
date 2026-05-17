@@ -47,29 +47,27 @@ export class Geocoder {
         this.baseURL = options.url ?? 'https://api.tianditu.gov.cn/geocoder';
     }
 
-    // 地址 -> 坐标（正向地理编码）
-    async getGeocode(address: string): Promise<TiandituResponse> {
-        const dsParam = JSON.stringify({ keyWord: address });
-
-        const params = new URLSearchParams({
-            ds: dsParam,
-            tk: this.tk
-        });
-
+    private async _request(params: URLSearchParams, errorLabel: string): Promise<TiandituResponse> {
         try {
             const response = await fetch(`${this.baseURL}?${params.toString()}`);
-
             if (!response.ok) {
                 throw new Error(`HTTP错误! 状态码: ${response.status}`);
             }
-
             const data: TiandituResponse = await response.json();
-
             return data;
         } catch (error) {
-            console.error('地理编码请求失败:', error);
-            throw new Error(`地理编码失败: ${error instanceof Error ? error.message : '未知错误'}`);
+            console.error(`${errorLabel}请求失败:`, error);
+            throw new Error(`${errorLabel}失败: ${error instanceof Error ? error.message : '未知错误'}`);
         }
+    }
+
+    // 地址 -> 坐标（正向地理编码）
+    async getGeocode(address: string): Promise<TiandituResponse> {
+        const params = new URLSearchParams({
+            ds: JSON.stringify({ keyWord: address }),
+            tk: this.tk
+        });
+        return await this._request(params, '地理编码');
     }
 
     // 坐标 -> 地址（逆地理编码）
@@ -83,23 +81,7 @@ export class Geocoder {
             type: 'geocode',
             tk: this.tk,
         });
-
-        try {
-            const url = `${this.baseURL}?${params.toString()}`;
-
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error(`HTTP错误! 状态码: ${response.status}`);
-            }
-
-            const data: TiandituResponse = await response.json();
-
-            return data;
-        } catch (error) {
-            console.error('逆地理编码请求失败:', error);
-            throw new Error(`逆地理编码失败: ${error instanceof Error ? error.message : '未知错误'}`);
-        }
+        return await this._request(params, '逆地理编码');
     }
 
     // 静态方法：创建实例
