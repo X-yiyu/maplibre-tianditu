@@ -89,7 +89,9 @@ const manager = MaplibreTDT.createTianDiTuMap({
 | `setZoom(zoom)` | 设置缩放级别 |
 | `getGeocode(address)` | 正向地理编码 (地址→坐标) |
 | `getReverseGeocode(lng, lat)` | 反向地理编码 (坐标→地址) |
-| `search(postStr)` | POI 搜索 |
+| `search(postStr)` | POI 搜索（自动补默认值: level=10, queryType=1, mapBound=全国） |
+| `loadIcons(icons)` | 预加载图标到地图样式 |
+| `getMapInstance()` | 获取底层 MapLibre 实例 |
 | `destroy()` | 销毁地图，释放资源 |
 
 ---
@@ -105,12 +107,22 @@ const manager = MaplibreTDT.createTianDiTuMap({
 
 ---
 
+## 代码约定
+
+- **错误处理**: 工具类使用 `_request(params, errorLabel)` 模式，Manager 层统一调用 `_handleError(error, "操作名")`
+- **导入**: API 模块使用默认导出（Geocoder、MapSearch），核心类使用具名导出
+- **类型**: 外部暴露的类型统一在 `src/types/index.ts` 中定义，内部类型在各模块内定义
+- **构建**: UMD 全局名称为 `MaplibreTDT`，入口为 `src/lib/index.ts`
+
+---
+
 ## 重要注意事项
 
 1. **天地图 API Key**: 必须从 [天地图控制台](https://console.tianditu.gov.cn/) 申请，不能随意使用
 2. **坐标系**: 默认 WGS84，GCJ02 需自定义源配置
 3. **跨域**: 天地图 API 支持跨域，可直接浏览器使用
-4. **开发时**: 务必设置 `--host` 参数，否则只能本地访问
+4. **搜索 API 默认值**: `search()` 未传入 `level`、`mapBound`、`queryType` 时会自动补默认值
+5. **开发时**: 务必设置 `--host` 参数，否则只能本地访问
 
 ---
 
@@ -119,12 +131,15 @@ const manager = MaplibreTDT.createTianDiTuMap({
 ```
 src/
 ├── lib/
-│   ├── core/         # TianDiTuMapManager, types.ts
+│   ├── core/         # TianDiTuMapManager, types
 │   ├── sources/      # WMTS 源配置 (tianditu.ts)
-│   ├── td-api/       # 地理编码和搜索 API
-│   └── utils/        # 工具函数
-├── types/            # TypeScript 类型定义
-└── vite.config.ts    # 构建配置 (UMD + ESM)
+│   ├── tdt-api/      # 地理编码 (Geocoder) 和搜索 API (MapSearch)
+│   └── index.ts      # 统一导出入口
+├── types/            # TiandituResponse 等公共类型
+├── AGENTS.md         # 本文件
+├── demo.html         # 全功能演示页面
+├── vite.config.ts    # 构建配置 (UMD + ESM)
+└── README.md         # 完整文档，含 API 参考
 ```
 
 ---

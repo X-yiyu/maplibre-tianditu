@@ -43,7 +43,7 @@ export default class MapSearch {
 
     public async search(postStr: MapSearchPostStr): Promise<TiandituResponse> {
         const params = new URLSearchParams({
-            postStr: JSON.stringify(postStr),
+            postStr: JSON.stringify({ level: '10', queryType: '1', mapBound: '-180,-90,180,90', ...postStr }),
             type: 'query',
             tk: this.tk,
         });
