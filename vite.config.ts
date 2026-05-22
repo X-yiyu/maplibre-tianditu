@@ -16,7 +16,7 @@ const buildConfig: BuildOptions = {
         output: {
             globals: {},
             compact: true,
-            banner: '/*! maplibre-tianditu - MIT License */',
+            banner: '/*! maplibre-tianditu - BSD-3-Clause License */',
             preserveModules: false,
         },
     },

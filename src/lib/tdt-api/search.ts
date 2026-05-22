@@ -27,15 +27,9 @@ export default class MapSearch {
         this.tk = options.tk;
         this.baseURL = options.url ?? 'http://api.tianditu.gov.cn/v2/search';
     }
-    public async search(postStr: MapSearchPostStr): Promise<TiandituResponse> {
-        const params = new URLSearchParams({
-            postStr: JSON.stringify(postStr),
-            type: 'query',
-            tk: this.tk,
-        });
+    private async _request(params: URLSearchParams): Promise<TiandituResponse> {
         try {
-            const url = `${this.baseURL}?${params.toString()}`;
-            const response = await fetch(url);
+            const response = await fetch(`${this.baseURL}?${params.toString()}`);
             if (!response.ok) {
                 throw new Error(`HTTP错误! 状态码: ${response.status}`);
             }
@@ -45,5 +39,14 @@ export default class MapSearch {
             console.error('搜索请求失败:', error);
             throw new Error(`搜索请求失败: ${error instanceof Error ? error.message : '未知错误'}`);
         }
+    }
+
+    public async search(postStr: MapSearchPostStr): Promise<TiandituResponse> {
+        const params = new URLSearchParams({
+            postStr: JSON.stringify({ level: '10', queryType: '1', mapBound: '-180,-90,180,90', ...postStr }),
+            type: 'query',
+            tk: this.tk,
+        });
+        return await this._request(params);
     }
 }

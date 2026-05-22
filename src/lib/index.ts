@@ -10,10 +10,7 @@ export { maplibregl };
 export { createTianDiTuSource } from './sources/tianditu';
 export type { TDTServiceType } from './sources/tianditu';
 
-export * from "./../types";
-
-// 工具函数（按需导出）
-// export { formatCoordinate, calculateDistance } from './utils/helper';
+export type { TiandituResponse, MapSearchPostStr } from "./../types";
 
 // 为了方便使用，可以导出一个默认的快速初始化函数
 export function createTianDiTuMap(options: TianDiTuMapOptions) {
