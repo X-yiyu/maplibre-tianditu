@@ -13,10 +13,9 @@ export function createTianDiTuSource(
     type: TDTServiceType = 'vec',
     options: {
         subdomains?: string[];
-        coordinateSystem?: 'wgs84' | 'gcj02';
     } = {}
 ) {
-    const { subdomains = ['t0', 't1', 't2', 't3', 't4', 't5', 't6', 't7'], coordinateSystem = 'wgs84' } = options;
+    const { subdomains = ['t0', 't1', 't2', 't3', 't4', 't5', 't6', 't7'] } = options;
 
     // 定义服务类型与图层名的映射
     const layerMap: Record<TDTServiceType, string> = {
@@ -29,7 +28,7 @@ export function createTianDiTuSource(
     };
 
     const layerName = layerMap[type];
-    const domain = coordinateSystem === 'gcj02' ? 't1.tianditu.gov.cn' : '{s}.tianditu.gov.cn';
+    const domain = '{s}.tianditu.gov.cn';
 
     return {
         type: 'raster' as const,

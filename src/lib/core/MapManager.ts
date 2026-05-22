@@ -252,7 +252,7 @@ export class TianDiTuMapManager {
     }
 
     /** 设置中心点 */
-    public setCenter(center: [number, number]): this {
+    public setCenter(center: LngLatLike): this {
         this.map.setCenter(center);
         return this;
     }
