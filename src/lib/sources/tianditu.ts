@@ -1,4 +1,3 @@
-import type { RasterSourceSpecification } from 'maplibre-gl';
 
 // 天地图服务类型
 export type TDTServiceType = 'vec' | 'img' | 'ter' | 'cia' | 'cta' | 'cva';
